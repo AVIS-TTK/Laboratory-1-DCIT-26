@@ -28,7 +28,7 @@ function compute(a, b, op) {
 }
 
 function reducer(state, action) {
-  // any key after an error starts fresh
+  
   if (state.error && action.type !== 'clear') {
     return reducer(initialState, action)
   }
@@ -52,11 +52,11 @@ function reducer(state, action) {
     }
 
     case 'operator': {
-      // changing operator before typing the next number
+      
       if (state.previous !== null && state.operator && state.overwrite) {
         return { ...state, operator: action.value, expression: `${state.previous} ${symbol(action.value)}` }
       }
-      // chaining: 2 + 3 + ...
+      
       if (state.previous !== null && state.operator) {
         const result = compute(state.previous, state.current, state.operator)
         if (result === null) return { ...initialState, current: 'Cannot divide by 0', error: true }
@@ -111,7 +111,7 @@ export const symbol = (op) => ({ '+': '+', '-': '−', '*': '×', '/': '÷' }[op
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  // keyboard support
+
   useEffect(() => {
     const onKey = (e) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return
@@ -119,7 +119,7 @@ export default function App() {
       if (/^[0-9]$/.test(k)) dispatch({ type: 'digit', value: k })
       else if (k === '.') dispatch({ type: 'dot' })
       else if (['+', '-', '*', '/'].includes(k)) {
-        e.preventDefault() // stops Firefox quick-find on "/"
+        e.preventDefault() 
         dispatch({ type: 'operator', value: k })
       } else if (k === 'Enter' || k === '=') {
         e.preventDefault()
