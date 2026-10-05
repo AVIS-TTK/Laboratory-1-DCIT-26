@@ -1,0 +1,4 @@
+npm create vite@latest Diaday -- --template react
+cd Diaday
+npm install
+npm install tailwindcss @tailwindcss/vite
